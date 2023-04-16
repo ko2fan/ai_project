@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://r2surg3tpdkv"]
+
+[ext_resource type="Texture2D" uid="uid://bo8nyar6nkge4" path="res://Characters/MinerSprites/Miner_idle.png" id="1_74lim"]
+[ext_resource type="Script" path="res://Characters/miner.cs" id="1_mms8i"]
+
+[node name="miner" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_mms8i")
+maxCarryWeight = 100
+maxThurst = 100.0
+maxFatigue = 100.0
+thurstLevel = 80.0
+moveSpeed = 2.5
+thurstSpeed = 1.0
+fatigueSpeed = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_74lim")
+hframes = 4

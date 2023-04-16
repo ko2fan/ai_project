@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl3ia24wsgirk"]
+
+[ext_resource type="PackedScene" uid="uid://r2surg3tpdkv" path="res://Characters/miner.tscn" id="1_xrq26"]
+
+[node name="World" type="Node2D"]
+
+[node name="miner" parent="." instance=ExtResource("1_xrq26")]
+position = Vector2(658, 363)
+thurstSpeed = 3.0
