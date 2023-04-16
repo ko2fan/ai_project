@@ -11,7 +11,9 @@ public class IdleState : State
     public override void Execute(BaseEntity entity)
     {
         GD.Print("Executing IdleState");
-        entity.Target = new Vector2(400, 360);
+        Vector2 minePosition = entity.GetParent<Node2D>().GetNode<Node2D>("mine")?.Position ?? Vector2.Zero;
+        
+        entity.Target = minePosition;
         entity.ChangeState(MineState.Instance);
     }
 

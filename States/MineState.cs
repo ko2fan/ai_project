@@ -19,7 +19,8 @@ public class MineState : State
         }
         else
         {
-            entity.Target = new Vector2(800, 360);
+            Vector2 bankPosition = entity.GetParent<Node2D>().GetNode<Node2D>("bank")?.Position ?? Vector2.Zero;
+            entity.Target = bankPosition;
             entity.ChangeState(DepositState.Instance);
         }
     }
@@ -32,6 +33,10 @@ public class MineState : State
         {
             MoveState.Instance.PreviousState = this;
             entity.ChangeState(MoveState.Instance);
+        }
+        else
+        {
+            entity.SetTimer(0.5f);
         }
     }
 

@@ -30,7 +30,10 @@ public class DepositState : State
         {
             MoveState.Instance.PreviousState = this;
             entity.ChangeState(MoveState.Instance);
+            return;
         }
+        
+        entity.SetTimer(0.25f);
     }
 
     public override void Exit(BaseEntity entity)

@@ -10,16 +10,30 @@ public class SleepState : State
     
     public override void Execute(BaseEntity entity)
     {
-        GD.Print("Executing sleep");
+        GD.Print("Executing SleepState");
+        if (entity.CanWake())
+        {
+            entity.ChangeState(IdleState.Instance);
+        }
+        else
+        {
+            entity.Sleep();
+        }
     }
 
     public override void Enter(BaseEntity entity)
     {
-        throw new System.NotImplementedException();
+        GD.Print("Entering SleepState");
+        
+        if (!entity.AtTarget())
+        {
+            MoveState.Instance.PreviousState = this;
+            entity.ChangeState(MoveState.Instance);
+        }
     }
 
     public override void Exit(BaseEntity entity)
     {
-        throw new System.NotImplementedException();
+        GD.Print("Exiting SleepState");
     }
 }

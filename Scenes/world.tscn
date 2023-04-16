@@ -1,9 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl3ia24wsgirk"]
+[gd_scene load_steps=8 format=3 uid="uid://cl3ia24wsgirk"]
 
 [ext_resource type="PackedScene" uid="uid://r2surg3tpdkv" path="res://Characters/miner.tscn" id="1_xrq26"]
+[ext_resource type="PackedScene" uid="uid://1as31duap31p" path="res://Locations/mine.tscn" id="2_fn5ur"]
+[ext_resource type="PackedScene" uid="uid://ceh2c8ajyq5gi" path="res://Locations/background.tscn" id="3_a8u6i"]
+[ext_resource type="PackedScene" uid="uid://djpyqdlqdadl7" path="res://Locations/foreground.tscn" id="4_8nia7"]
+[ext_resource type="PackedScene" uid="uid://dnkeyoovrojq8" path="res://Locations/bank.tscn" id="4_bv70s"]
+[ext_resource type="PackedScene" uid="uid://bhcu2sk3xncfb" path="res://Locations/saloon.tscn" id="5_lrnbm"]
+[ext_resource type="PackedScene" uid="uid://1t8hq5dqux8b" path="res://Locations/hotel.tscn" id="6_jrpe5"]
 
 [node name="World" type="Node2D"]
 
+[node name="background" parent="." instance=ExtResource("3_a8u6i")]
+position = Vector2(638, 358)
+
 [node name="miner" parent="." instance=ExtResource("1_xrq26")]
-position = Vector2(658, 363)
-thurstSpeed = 3.0
+z_index = 2
+position = Vector2(648, 563)
+scale = Vector2(1.5, 1.5)
+
+[node name="mine" parent="." instance=ExtResource("2_fn5ur")]
+z_index = 1
+position = Vector2(425, 548)
+
+[node name="bank" parent="." instance=ExtResource("4_bv70s")]
+position = Vector2(1084, 533)
+
+[node name="saloon" parent="." instance=ExtResource("5_lrnbm")]
+position = Vector2(822, 546)
+
+[node name="hotel" parent="." instance=ExtResource("6_jrpe5")]
+position = Vector2(216, 548)
+
+[node name="foreground" parent="." instance=ExtResource("4_8nia7")]
+z_index = 10
+position = Vector2(638, 358)

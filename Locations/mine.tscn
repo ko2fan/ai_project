@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://1as31duap31p"]
+
+[ext_resource type="Texture2D" uid="uid://bk7f3amf7aby1" path="res://Locations/LocationSprites/mine.png" id="1_eashc"]
+
+[node name="mine" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7, -40)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_eashc")
+flip_h = true

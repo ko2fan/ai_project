@@ -10,8 +10,9 @@ maxCarryWeight = 100
 maxThurst = 100.0
 maxFatigue = 100.0
 thurstLevel = 80.0
+fatigueLevel = 80.0
 moveSpeed = 2.5
-thurstSpeed = 1.0
+thurstSpeed = 3.0
 fatigueSpeed = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceh2c8ajyq5gi"]
+
+[ext_resource type="Texture2D" uid="uid://b0ct557rs5eb6" path="res://Locations/LocationSprites/6.png" id="1_vxemv"]
+[ext_resource type="Texture2D" uid="uid://dnn2ndpq5kic8" path="res://Locations/LocationSprites/5.png" id="2_uv7t6"]
+[ext_resource type="Texture2D" uid="uid://dfp264kiyq8yv" path="res://Locations/LocationSprites/4.png" id="3_v8dqo"]
+[ext_resource type="Texture2D" uid="uid://bdk1vlf3rasry" path="res://Locations/LocationSprites/3.png" id="4_uoluv"]
+[ext_resource type="Texture2D" uid="uid://d21wud5a2m1by" path="res://Locations/LocationSprites/2.png" id="5_l1jhb"]
+
+[node name="background" type="Node2D"]
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("1_vxemv")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("2_uv7t6")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("3_v8dqo")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("4_uoluv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("5_l1jhb")

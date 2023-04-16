@@ -21,21 +21,25 @@ public partial class BaseEntity : Node2D
     [Export] private float maxThurst;
     [Export] private float maxFatigue;
     [Export] private float thurstLevel;
+    [Export] private float fatigueLevel;
 
-    [ExportGroup("Entity Speed")]
+    [ExportGroup("Entity Rates")]
     [Export] private float moveSpeed;
     [Export] private float thurstSpeed;
     [Export] private float fatigueSpeed;
     
     private State _currentState;
     
-    [ExportGroup("Entity amounts")]
-    [Export] private int _totalGold;
-    [Export] private int _totalMoney;
+    private int _totalGold;
+    private int _totalMoney;
 
-    [Export] private float _currentThurst;
-    [Export] private float _currentFatigue;
-    [Export] private float _currentCarryWeight;
+    private float _currentThurst;
+    private float _currentFatigue;
+    private float _currentCarryWeight;
+
+    private double _timer;
+    private double _timeElapsed;
+    private double _delta;
 	
     public void ChangeState(State state)
     {
@@ -52,26 +56,50 @@ public partial class BaseEntity : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        _totalGold = 0;
+        _totalMoney = 0;
         _currentThurst = 0;
         _currentFatigue = 0;
+        _currentCarryWeight = 0;
         _currentState = IdleState.Instance;
+        _delta = 0;
+        _timer = 0;
+        _timeElapsed = 0;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        _currentThurst += (float)(thurstSpeed * delta);
+        _delta = delta;
+        _currentThurst += (float)(thurstSpeed * _delta);
         if (IsThirsty())
         {
-            Target = new Vector2(600, 500);
-            ChangeState(DrinkState.Instance);
+            if (_currentState != MoveState.Instance || MoveState.Instance.PreviousState != DrinkState.Instance)
+            {
+                GD.Print("Thirsty");
+                Vector2 saloonPosition = GetParent<Node2D>().GetNode<Node2D>("saloon")?.Position ?? Vector2.Zero;
+                Target = saloonPosition;
+                ChangeState(DrinkState.Instance);
+            }
         }
+
+        if (IsTired())
+        {
+            if (_currentState != MoveState.Instance || MoveState.Instance.PreviousState != SleepState.Instance)
+            {
+                GD.Print("Tired");
+                Vector2 hotelPosition = GetParent<Node2D>().GetNode<Node2D>("hotel")?.Position ?? Vector2.Zero;
+                Target = hotelPosition;
+                ChangeState(SleepState.Instance);
+            }
+        }
+        
         _currentState.Execute(this);
     }
 
     public bool AtTarget()
     {
-        return !(Position.DistanceSquaredTo(Target) > 144.0f);
+        return !(Position.DistanceSquaredTo(Target) > 16.0f);
     }
 
     public bool CanCarry() => _currentCarryWeight < maxCarryWeight;
@@ -79,19 +107,40 @@ public partial class BaseEntity : Node2D
     public bool IsThirsty() => _currentThurst >= thurstLevel;
     public bool IsSatiated() => _currentThurst <= 10;
 
+    public bool IsTired() => _currentFatigue >= fatigueLevel;
+    public bool CanWake() => _currentFatigue <= 10;
+
     public bool HasGold() => _totalGold > 0;
 
     public void Drink()
     {
-        _currentThurst -= 10;
+        _currentThurst -= (float)(10 * _delta);
         if (_currentThurst <= 0.0f)
             _currentThurst = 0f;
     }
 
     public void DepositResource()
     {
-        _totalGold -= 1;
+        _timeElapsed += _delta;
+        if (_timeElapsed >= _timer)
+        {
+            _timeElapsed = 0;
+            _currentCarryWeight -= 10;
+            _totalGold -= 1;
+        }
     }
+
+    public void Sleep()
+    {
+        _currentFatigue -= (float)(10 * _delta);
+        if (_currentFatigue <= 0.0f)
+            _currentFatigue = 0f;
+    }
+
+    // public void Tire(float tiredness)
+    // {
+    //     _currentFatigue += tiredness;
+    // }
 
     public void MoveTowards(Vector2 position)
     {
@@ -100,7 +149,18 @@ public partial class BaseEntity : Node2D
 
     public void MineResource()
     {
-        _totalGold += 1;
-        _currentCarryWeight += 10;
+        _timeElapsed += _delta;
+        if (_timeElapsed >= _timer)
+        {
+            _timeElapsed = 0;
+            _totalGold += 1;
+            _currentCarryWeight += 10;
+            _currentFatigue += fatigueSpeed;
+        }
+    }
+
+    public void SetTimer(double time)
+    {
+        _timer = time;
     }
 }
