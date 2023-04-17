@@ -30,10 +30,17 @@ public class DrinkState : State
             MoveState.Instance.PreviousState = this;
             entity.ChangeState(MoveState.Instance);
         }
+        else
+        {
+            AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+            anim.Play("drink");
+        }
     }
 
     public override void Exit(BaseEntity entity)
     {
         GD.Print("Exiting DrinkState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Stop();
     }
 }

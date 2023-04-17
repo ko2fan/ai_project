@@ -40,6 +40,8 @@ public partial class BaseEntity : Node2D
     private double _timer;
     private double _timeElapsed;
     private double _delta;
+
+    private Vector2 _direction;
 	
     public void ChangeState(State state)
     {
@@ -144,8 +146,12 @@ public partial class BaseEntity : Node2D
 
     public void MoveTowards(Vector2 position)
     {
+        Vector2 oldPosition = Position;
         Position = Position.MoveToward(position, moveSpeed);
+        _direction = (Position - oldPosition).Normalized();
     }
+
+    public bool FacingLeft() => _direction.X < 0;
 
     public void MineResource()
     {

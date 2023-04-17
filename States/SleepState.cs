@@ -35,5 +35,7 @@ public class SleepState : State
     public override void Exit(BaseEntity entity)
     {
         GD.Print("Exiting SleepState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Stop();
     }
 }

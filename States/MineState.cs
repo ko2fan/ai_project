@@ -15,7 +15,6 @@ public class MineState : State
         if (entity.CanCarry())
         {
             entity.MineResource();
-            GD.Print("Mining gold");
         }
         else
         {
@@ -37,11 +36,15 @@ public class MineState : State
         else
         {
             entity.SetTimer(0.5f);
+            AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+            anim.Play("mine");
         }
     }
 
     public override void Exit(BaseEntity entity)
     {
         GD.Print("Exiting MineState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Stop();
     }
 }

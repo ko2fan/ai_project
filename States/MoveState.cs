@@ -14,6 +14,7 @@ public class MoveState : State
     {
         //GD.Print("Executing MoveState");
         entity.MoveTowards(entity.Target);
+        entity.GetNode<Sprite2D>("Sprite2D").FlipH = entity.FacingLeft();
         //GD.Print("Moving " + entity.Position + " towards " + entity.Target);
         if (entity.AtTarget())
         {
@@ -24,10 +25,14 @@ public class MoveState : State
     public override void Enter(BaseEntity entity)
     {
         GD.Print("Entering MoveState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Play("walk");
     }
 
     public override void Exit(BaseEntity entity)
     {
         GD.Print("Exiting MoveState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Stop();
     }
 }

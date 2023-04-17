@@ -14,7 +14,6 @@ public class DepositState : State
         if (entity.HasGold())
         {
             entity.DepositResource();
-            GD.Print("Depositing gold");
         }
         else
         {
@@ -30,14 +29,19 @@ public class DepositState : State
         {
             MoveState.Instance.PreviousState = this;
             entity.ChangeState(MoveState.Instance);
-            return;
         }
-        
-        entity.SetTimer(0.25f);
+        else
+        {
+            entity.SetTimer(0.25f);
+            AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+            anim.Play("dropoff");
+        }
     }
 
     public override void Exit(BaseEntity entity)
     {
         GD.Print("Exiting DepositState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Stop();
     }
 }

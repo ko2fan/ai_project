@@ -20,10 +20,14 @@ public class IdleState : State
     public override void Enter(BaseEntity entity)
     {
         GD.Print("Entering IdleState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Play("idle");
     }
 
     public override void Exit(BaseEntity entity)
     {
         GD.Print("Exiting IdleState");
+        AnimationPlayer anim = (AnimationPlayer)entity.GetNode("AnimationPlayer");
+        anim.Stop();
     }
 }
