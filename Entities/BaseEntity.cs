@@ -42,6 +42,8 @@ public partial class BaseEntity : Node2D
     private double _delta;
 
     private Vector2 _direction;
+    private HSlider _thirstMeter;
+    private RichTextLabel _goldCounter;
 	
     public void ChangeState(State state)
     {
@@ -67,13 +69,18 @@ public partial class BaseEntity : Node2D
         _delta = 0;
         _timer = 0;
         _timeElapsed = 0;
+        _thirstMeter = GetNode<HSlider>("Thirst");
+        _goldCounter = GetParent().GetNode<Node2D>("GoldUI").GetNode<RichTextLabel>("gold");
+        _goldCounter.Text = _totalMoney.ToString();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
         _delta = delta;
+        
         _currentThurst += (float)(thurstSpeed * _delta);
+        _thirstMeter.Value = 100 - _currentThurst;
         if (IsThirsty())
         {
             if (_currentState != MoveState.Instance || MoveState.Instance.PreviousState != DrinkState.Instance)
@@ -129,6 +136,8 @@ public partial class BaseEntity : Node2D
             _timeElapsed = 0;
             _currentCarryWeight -= 10;
             _totalGold -= 1;
+            _totalMoney += 1;
+            _goldCounter.Text = _totalMoney.ToString();
         }
     }
 

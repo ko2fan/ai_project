@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://r2surg3tpdkv"]
+[gd_scene load_steps=18 format=3 uid="uid://r2surg3tpdkv"]
 
 [ext_resource type="Texture2D" uid="uid://bo8nyar6nkge4" path="res://Characters/MinerSprites/Miner_idle.png" id="1_74lim"]
 [ext_resource type="Script" path="res://Characters/miner.cs" id="1_mms8i"]
@@ -237,6 +237,20 @@ _data = {
 "walk": SubResource("Animation_mmhqa")
 }
 
+[sub_resource type="Theme" id="Theme_m7ajd"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fvl7f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y3sl"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.396078, 0.419608, 0.403922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0kua"]
+bg_color = Color(0.380392, 0.517647, 0.956863, 1)
+
 [node name="miner" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_mms8i")
@@ -257,3 +271,16 @@ hframes = 6
 libraries = {
 "": SubResource("AnimationLibrary_1hm5r")
 }
+
+[node name="Thirst" type="HSlider" parent="."]
+offset_left = -31.0
+offset_top = -32.0
+offset_right = 17.0
+offset_bottom = -16.0
+theme = SubResource("Theme_m7ajd")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_fvl7f")
+theme_override_styles/slider = SubResource("StyleBoxFlat_6y3sl")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_m0kua")
+value = 100.0
+editable = false
+scrollable = false

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctryijsngnv8q"]
+
+[ext_resource type="Texture2D" uid="uid://rpxyy83s835d" path="res://UI/UISprites/goldicon.png" id="1_f7xom"]
+
+[sub_resource type="Theme" id="Theme_ypc2h"]
+
+[node name="GoldUI" type="Node2D"]
+
+[node name="gold" type="RichTextLabel" parent="."]
+offset_left = 84.0
+offset_top = -42.0
+offset_right = 309.0
+offset_bottom = 35.0
+theme = SubResource("Theme_ypc2h")
+theme_override_font_sizes/normal_font_size = 56
+text = "999999"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_f7xom")
